@@ -12,9 +12,9 @@ Challenge Dataset
 We used navigation episodes Habitat created as the main dataset for the challenge. In addition, we scanned a 
 new house named "Castro" and use part of it for training. The evaluation will be in Castro in both sim and real.
 
-Training scenes: 106 Gibson Scenes + Castro
-Dev scenes: Castro(Sim), Castro(Real)
-Evaluation scenes: CastroFull(Sim), CastroFull(Real)
+- Training scenes: 106 Gibson Scenes + Castro
+- Dev scenes: Castro(Sim), Castro(Real)
+- Evaluation scenes: CastroFull(Sim), CastroFull(Real)
 
 
 Evaluation
@@ -70,16 +70,26 @@ ADD agent.py /agent.py
 ADD submission.sh /submission.sh
 WORKDIR /
 ```
--Step 4: 
+- Step 4: 
 
-Download challenge data and put in `GibsonSim2RealCallenge/gibson-challenge-data`
+Download challenge data from [here](https://docs.google.com/forms/d/e/1FAIpQLSen7LZXKVl_HuiePaFzG_0Boo6V3J5lJgzt3oPeSfPr4HTIEA/viewform) and put in `GibsonSim2RealCallenge/gibson-challenge-data`
 
--Step 5:
+- Step 5:
 
 Evaluate locally:
 
-You can run `./test_locally_pointgoal_rgbd.sh --docker-name my_submission`
+You can run `./test_locally.sh --docker-name my_submission`
 
+If things work properly, you should be able to see the terminal output in the end:
+```
+...
+episode done, total reward -0.31142135623731104, total success 0
+episode done, total reward -5.084213562373038, total success 0
+episode done, total reward -11.291320343559496, total success 0
+episode done, total reward -16.125634918610242, total success 0
+episode done, total reward -16.557056274847586, total success 0
+...
+```
 
 ### Online submission
 TBA
