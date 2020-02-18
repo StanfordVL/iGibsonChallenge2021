@@ -1,4 +1,3 @@
-import gibson2
 from gibson2.envs.challenge import Challenge
 import numpy as np
 
