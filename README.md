@@ -92,7 +92,31 @@ episode done, total reward -16.557056274847586, total success 0
 ```
 
 ### Online submission
-TBA
+Follow instructions in the submit tab of the EvalAI challenge page to submit your docker image. Note that you will need a version of EvalAI >= 1.2.3. Pasting those instructions here for convenience:
+
+```bash
+# Installing EvalAI Command Line Interface
+pip install "evalai>=1.2.3"
+
+# Set EvalAI account token
+evalai set_token <your EvalAI participant token>
+
+# Push docker image to EvalAI docker registry
+evalai push my_submission:latest --phase <phase-name>
+```
+
+Valid challenge phases are gibson20-{minival, testsim, testreal}-{static, interactive, dynamic}.
+
+The challenge consists of the following phases:
+
+1. Minival: The purpose of this phase is mainly for sanity checking.  The participants are given a Train and Validation sets to train and evaluate policies. These sets represent environments similar to the final real deployment environment, and model a LoCoBot, the platform which is used in the final evaluation. Participants can submit their policy for evaluation on the aforementioned Validation set to an evaluation server hosted by EvalAI.
+
+
+2. Testsim: The participants are evaluated on a held-out Test environment, which mimics the final real world test but isn't identical to it. It is a scan of the real apartment where the final challenge is held. However, the furniture, cluttering and dynamic objects are arranged differently.  
+Further, this test is used to rank all participants. Only top 5 participants are to be considered for the real world evaluation.
+
+3. Testreal: In this step we are given the opportunity to the participants to develop on the real robot. In more detail, we will allow the participants to run up to X times their policy in the real apartment. The furniture arrangement and objects are different from the ones used in the final test. The participants are given videos of their runs and evaluation metrics, which are intended to facilitate debugging. In the final step the participating policies are tested on a real robot in a real environment. It is the same environment as in Step 3, however furniture and objects are arranged differently, and a new bedroom and a new bathroom are revealed. This test is used to rank participants and determine a winner.
+
 
 ### Starter code and Training
 TBA
