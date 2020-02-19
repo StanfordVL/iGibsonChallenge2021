@@ -84,7 +84,7 @@ if __name__ == "__main__":
     main()
 ```
 
-- Step 2: Install nvidia-docker2, following the [guide](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0). 
+- Step 2: Install nvidia-docker2, following the guide: https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0). 
 
 - Step 3: Modify the provided Dockerfile to accommodate any dependencies. A minimal Dockerfile is shown below.
 ```Dockerfile
@@ -130,7 +130,8 @@ evalai set_token <your EvalAI participant token>
 evalai push my_submission:latest --phase <phase-name>
 ```
 
-Valid challenge phases are gibson20-{minival, testsim, testreal}-{static, interactive, dynamic}.
+Valid challenge phases are `gibson20-{minival, testsim, testreal}-{static, interactive, dynamic}`, 
+where `static, interactive, dynamic` corresponds to three tracks.
 
 Our Sim2Real Challenge consists of three phases:
 
@@ -166,11 +167,12 @@ This will provide an opportunity for the teams to explain their solution.
 
 
 ### Starter code and Training
-TBA
+
+The starter code is contained in `gibsonchallenge/gibsonv2:latest`, instructions TBA. 
 
 Acknowledgments
 -------------------
-We thank habitat team for the effort of converging task setup and challenge API. 
+We thank [habitat](https://aihabitat.org/) team for the effort of converging task setup and challenge API. 
 
 
 References 
