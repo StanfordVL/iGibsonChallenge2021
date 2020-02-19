@@ -1,10 +1,33 @@
 Sim2Real Challenge with Gibson @ CVPR 2020
-===================================
-This repository contains starter code for sim2real challenge with Gibson. For an overview of the challenge, visit [http://svl.stanford.edu/gibson2/challenge](http://svl.stanford.edu/gibson2/challenge) .
+=============================================
+
+This repository contains starter code for sim2real challenge with Gibson. 
+For an overview of the challenge, visit [http://svl.stanford.edu/gibson2/challenge](http://svl.stanford.edu/gibson2/challenge).
 
 Task
 ----------------------------
-PointNav, PointNav with Interactable objects, PointNav with dynamic obstacles. Details TBA.
+The first Gibson Sim2Real Challenge is composed of three simultaneous tracks that model important skills in visual navigation:
+
+- PointNav Track: the goal for an agent in this track is to successfully to 
+a desired location based on visual information (RGB+D). In this track, the agent is not allowed to collide with the environment. 
+This track will evaluate the sim2real transference of the most basic capability in a navigating agent. 
+We will evaluate performance in this track using SPL [3].
+
+- InteractiveNav Track: in this track the agent is allowed (even encouraged) 
+to collide with the environment in order to push obstacles away. 
+But careful! Some of the obstacles are not movable. This track evaluates 
+agents in Interactive Navigation tasks [1], navigation problems that 
+considers interactions with the environment. We will use INS [1] to 
+evaluate performance of agents in this track.
+
+- DynamicObstacleNav Track: the agents in this track need to avoid collisions 
+with a dynamic agent with different unknown navigating patterns. 
+Reasoning about the motion of other agents is challenging, 
+and we will measure how well existing sim2real solutions perform in this conditions. 
+No collisions are allowed in this track. We will use again SPL to evaluate the agents.
+
+All submissions to our challenge will be evaluated in these three tracks, 
+but we will announce separate winners for each of them.
 
 Challenge Dataset
 ----------------------------
@@ -12,7 +35,7 @@ Challenge Dataset
 We used navigation episodes Habitat created as the main dataset for the challenge. In addition, we scanned a 
 new house named "Castro" and use part of it for training. The evaluation will be in Castro in both sim and real.
 
-- Training scenes: 106 Gibson Scenes + Castro
+- Training scenes: 572 Gibson Scenes + Castro
 - Dev scenes: Castro(Sim), Castro(Real)
 - Evaluation scenes: CastroFull(Sim), CastroFull(Real)
 
@@ -21,7 +44,9 @@ Evaluation
 -----------------------------
 After calling the STOP action, the agent is evaluated using the "Success weighted by Path Length" (SPL) metric [3].
 
-![SPL](./misc/spl.png)
+<p align="center">
+  <img src='misc/spl.png' />
+</p>
 
 An episode is deemed successful if on calling the STOP action, the agent is within 0.36m of the goal position. The evaluation will be carried out in completely new houses which are not present in training and validation splits.
 
@@ -107,15 +132,37 @@ evalai push my_submission:latest --phase <phase-name>
 
 Valid challenge phases are gibson20-{minival, testsim, testreal}-{static, interactive, dynamic}.
 
-The challenge consists of the following phases:
+Our Sim2Real Challenge consists of three phases:
 
-1. Minival: The purpose of this phase is mainly for sanity checking.  The participants are given a Train and Validation sets to train and evaluate policies. These sets represent environments similar to the final real deployment environment, and model a LoCoBot, the platform which is used in the final evaluation. Participants can submit their policy for evaluation on the aforementioned Validation set to an evaluation server hosted by EvalAI.
+- Phase 0: Sanity Check (`minival`): 
+The purpose of this phase is mainly for sanity checking and make sure the policy 
+can be successfully submitted and evaluated.
+Participant can submit any policy, even trivial policy to our evaluation server. 
+Each team is allowed maximum of 30 submission per day for this phase. 
+We will block and disqualify teams that spam our servers.
 
+- Phase 1: Simulation phase (`testsim`): 
+In this phase participants will develop their solutions in our simulator Gibson. 
+They will get access to all Gibson 3D reconstructed environments (572) and a 
+3D reconstruction of part of the real world environment where this phase will take place, named Castro. 
+Another part of the apartment will be kept unseen to perform evaluation (CastroFull). 
+Participants can submit their solutions at any time through the [evalai](https://evalai.cloudcv.org) portal. 
+At the end of the classification time (TBA), the best 5 solutions will pass to the second phase, the real world.
 
-2. Testsim: The participants are evaluated on a held-out Test environment, which mimics the final real world test but isn't identical to it. It is a scan of the real apartment where the final challenge is held. However, the furniture, cluttering and dynamic objects are arranged differently.  
-Further, this test is used to rank all participants. Only top 5 participants are to be considered for the real world evaluation.
+- Phase 2: Real World phase (`testreal`): The classified teams will receive 30 min/day to 
+evaluate their policies on our real world platform. The runs will be saved as footages for debugging. 
+They will also receive a record of the states, measurements, 
+and actions taken by the real world agent at the end of each run, 
+as well as the score. The last two days (TBA) are classification time: 
+the teams will be ranked by their scores. 
+At the end of these two days we will announce the winner of the first Gibson Sim2Real Challenge.
 
-3. Testreal: In this step we are given the opportunity to the participants to develop on the real robot. In more detail, we will allow the participants to run up to X times their policy in the real apartment. The furniture arrangement and objects are different from the ones used in the final test. The participants are given videos of their runs and evaluation metrics, which are intended to facilitate debugging. In the final step the participating policies are tested on a real robot in a real environment. It is the same environment as in Step 3, however furniture and objects are arranged differently, and a new bedroom and a new bathroom are revealed. This test is used to rank participants and determine a winner.
+- Phase 3: Demo phase: The best three entries 
+of our challenge will receive the opportunity to 
+showcase their solutions live during CVPR20! We will connect 
+directly from Seattle and video stream a run of each solutions, 
+highlighting their strengths and characteristics. 
+This will provide an opportunity for the teams to explain their solution.
 
 
 ### Starter code and Training
