@@ -2,7 +2,7 @@ Sim2Real Challenge with Gibson @ CVPR 2020
 =============================================
 
 This repository contains starter code for sim2real challenge with Gibson brought to you by [Stanford VL](http://svl.stanford.edu) and [Robotics @ Google](https://research.google/teams/brain/robotics/). 
-For an overview of the challenge, visit [the challenge website](http://svl.stanford.edu/gibson2/challenge).
+For an overview of the challenge, visit [the challenge website](http://svl.stanford.edu/gibson2/challenge.html).
 
 Task
 ----------------------------
