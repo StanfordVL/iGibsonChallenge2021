@@ -203,15 +203,26 @@ This will provide an opportunity for the teams to explain their solution.
   cd agents
   
   # SAC
-  ./tf_agents/agents/sac/examples/v1/train.sh
-  
+  ./tf_agents/agents/sac/examples/v1/train_single_env.sh
+
   # DDPG / PPO
   TBA
   ```
-  This will train in one single environment specified by `model_id` in `config_file`. Good for debugging.
+  This will train in one single scene specified by `model_id` in `config_file`.
 
 - Step 6: scale up training!
+  ```
+  cd agents
+  
+  # SAC
+  ./tf_agents/agents/sac/examples/v1/train_multiple_env.sh
+
+  # DDPG / PPO
   TBA
+  ```
+  This will train in all the training scenes defined in `GibsonEnvV2/gibson2/data/train.json`. After every `reload_interval` train steps, a new group of scenes will be randomly sampled and reloaded.
+  
+Feel free to skip Step 4-6 if you want to use other frameworks for training. These are just example starter code for your reference.
 
 Acknowledgments
 -------------------
