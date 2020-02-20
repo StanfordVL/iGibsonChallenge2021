@@ -56,68 +56,68 @@ Participate in the contest by registering on the EvalAI challenge page and creat
 
 ### Local Evaluation
 - Step 1: Clone the challenge repository
-```bash
-git clone https://github.com/StanfordVL/GibsonSim2RealCallenge.git
-cd GibsonSim2RealCallenge
-```
+  ```bash
+  git clone https://github.com/StanfordVL/GibsonSim2RealCallenge.git
+  cd GibsonSim2RealCallenge
+  ```
 
-Implement your own agent, one example is a random agent in `agent.py`.
+  Implement your own agent, one example is a random agent in `agent.py`.
 
-```python3
-from gibson2.envs.challenge import Challenge
-import numpy as np
+  ```python3
+  from gibson2.envs.challenge import Challenge
+  import numpy as np
 
-class RandomAgent:
-    def reset(self):
-        pass
+  class RandomAgent:
+      def reset(self):
+          pass
 
-    def act(self, observations):
-        action = np.random.uniform(low=-1,high=1,size=(2,))
-        return action
+      def act(self, observations):
+          action = np.random.uniform(low=-1,high=1,size=(2,))
+          return action
 
-def main():
-    agent = RandomAgent()
-    challenge = Challenge()
-    challenge.submit(agent)
+  def main():
+      agent = RandomAgent()
+      challenge = Challenge()
+      challenge.submit(agent)
 
-if __name__ == "__main__":
-    main()
-```
+  if __name__ == "__main__":
+      main()
+  ```
 
 - Step 2: Install nvidia-docker2, following the guide: https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0). 
 
 - Step 3: Modify the provided Dockerfile to accommodate any dependencies. A minimal Dockerfile is shown below.
-```Dockerfile
-FROM gibsonchallenge/gibsonv2:latest
-ENV PATH /miniconda/envs/gibson/bin:$PATH
+  ```Dockerfile
+  FROM gibsonchallenge/gibsonv2:latest
+  ENV PATH /miniconda/envs/gibson/bin:$PATH
 
-ADD agent.py /agent.py
-ADD submission.sh /submission.sh
-WORKDIR /
-```
+  ADD agent.py /agent.py
+  ADD submission.sh /submission.sh
+  WORKDIR /
+  ```
 
-Build your docker container: `docker build . -t my_submission` , where `my_submission` is the docker image name you want to use.
+  Build your docker container: `docker build . -t my_submission` , where `my_submission` is the docker image name you want to use.
 
 - Step 4: 
 
-Download challenge data from [here](https://docs.google.com/forms/d/e/1FAIpQLSen7LZXKVl_HuiePaFzG_0Boo6V3J5lJgzt3oPeSfPr4HTIEA/viewform) and put in `GibsonSim2RealCallenge/gibson-challenge-data`
+  Download challenge data from [here](https://docs.google.com/forms/d/e/1FAIpQLSen7LZXKVl_HuiePaFzG_0Boo6V3J5lJgzt3oPeSfPr4HTIEA/viewform) and put in `GibsonSim2RealCallenge/gibson-challenge-data`
 
 - Step 5:
 
-Evaluate locally:
+  Evaluate locally:
 
-You can run `./test_locally.sh --docker-name my_submission`
+  You can run `./test_locally.sh --docker-name my_submission`
 
-If things work properly, you should be able to see the terminal output in the end:
-```
-...
-episode done, total reward -0.31142135623731104, total success 0
-episode done, total reward -5.084213562373038, total success 0
-episode done, total reward -11.291320343559496, total success 0
-episode done, total reward -16.125634918610242, total success 0
-episode done, total reward -16.557056274847586, total success 0
-...
-```
+  If things work properly, you should be able to see the terminal output in the end:
+  ```
+  ...
+  episode done, total reward -0.31142135623731104, total success 0
+  episode done, total reward -5.084213562373038, total success 0
+  episode done, total reward -11.291320343559496, total success 0
+  episode done, total reward -16.125634918610242, total success 0
+  episode done, total reward -16.557056274847586, total success 0
+  ...
+  ```
 
 ### Online submission
 Follow instructions in the submit tab of the EvalAI challenge page to submit your docker image. Note that you will need a version of EvalAI >= 1.2.3. Pasting those instructions here for convenience:
@@ -169,9 +169,49 @@ highlighting their strengths and characteristics.
 This will provide an opportunity for the teams to explain their solution.
 
 
-### Starter code and Training
+### Training
 
-The starter code is contained in `gibsonchallenge/gibsonv2:latest`, instructions TBA. 
+#### Using Docker
+`./train_locally.sh --docker-name my_submission`
+
+#### Not using Docker
+- Step 0: install [anaconda](https://docs.anaconda.com/anaconda/install/) and create a python3.6 environment
+  ```
+  conda create -n gibson python=3.6
+  conda activate gibson
+  ```
+- Step 1: install [CUDA](https://developer.nvidia.com/cuda-downloads) and [cuDNN](https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html). We tested with CUDA 10.0 and 10.1 and cuDNN 7.6.5
+
+- Step 2: install EGL dependency
+  ```
+  sudo apt-get install libegl1-mesa-dev
+  ```
+- Step 3: install [GibsonEnvV2](https://github.com/StanfordVL/GibsonEnvV2) and download Gibson [assets](https://storage.googleapis.com/gibsonassets/assets_gibson_v2.tar.gz) and [dataset](https://docs.google.com/forms/d/e/1FAIpQLSen7LZXKVl_HuiePaFzG_0Boo6V3J5lJgzt3oPeSfPr4HTIEA/viewform) by following the [documentation](http://svl.stanford.edu/gibson2/docs/). Please use the `gibson_sim2real` branch instead of the `master` branch.
+  ```
+  cd GibsonEnvV2
+  git checkout gibson_sim2real
+  ```
+- Step 4: install [our fork of tf-agents](https://github.com/StanfordVL/agents). Please use the `gibson_sim2real` branch instead of the `master` branch.
+  ```
+  cd agents
+  git checkout gibson_sim2real
+  pip install tensorflow-gpu==1.15.0
+  pip install -e .
+  ```
+- Step 5: start training!
+  ```
+  cd agents
+  
+  # SAC
+  ./tf_agents/agents/sac/examples/v1/train.sh
+  
+  # DDPG / PPO
+  TBA
+  ```
+  This will train in one single environment specified by `model_id` in `config_file`. Good for debugging.
+
+- Step 6: scale up training!
+  TBA
 
 Acknowledgments
 -------------------
