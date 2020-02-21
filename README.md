@@ -61,28 +61,38 @@ Participate in the contest by registering on the EvalAI challenge page and creat
   cd GibsonSim2RealCallenge
   ```
 
-  Implement your own agent, one example is a random agent in `agent.py`.
-
+  Three example agents are provided in `simple_agent.py` and `rl_agent.py`: `RandomAgent`, `ForwardOnlyAgent`, and `SACAgent`.
+  
+  Here is `RandomAgent` defined in `simple_agent.py`.
   ```python3
-  from gibson2.envs.challenge import Challenge
-  import numpy as np
+  ACTION_DIM = 3
+  LINEAR_VEL_DIM = 0
+  ANGULAR_VEL_DIM = 1
+  STOP_DIM = 2
+
 
   class RandomAgent:
+      def __init__(self, success_distance):
+          self.dist_threshold_to_stop = success_distance
+
       def reset(self):
           pass
 
+      def is_goal_reached(self, observations):
+          dist = observations["sensor"][0]
+          return dist <= self.dist_threshold_to_stop
+
       def act(self, observations):
-          action = np.random.uniform(low=-1,high=1,size=(2,))
+          action = np.zeros(ACTION_DIM)
+          if self.is_goal_reached(observations):
+              action[STOP_DIM] = 1.0
+          else:
+              action = np.random.uniform(low=-1, high=1, size=(ACTION_DIM,))
+              action[STOP_DIM] = -1.0
           return action
-
-  def main():
-      agent = RandomAgent()
-      challenge = Challenge()
-      challenge.submit(agent)
-
-  if __name__ == "__main__":
-      main()
   ```
+  
+  Please implement your own agent and instantiate it from `agent.py`.
 
 - Step 2: Install nvidia-docker2, following the guide: https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0). 
 
