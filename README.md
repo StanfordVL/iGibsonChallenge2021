@@ -100,7 +100,12 @@ Participate in the contest by registering on the EvalAI challenge page and creat
 
 - Step 4: 
 
-  Download challenge data from [here](https://docs.google.com/forms/d/e/1FAIpQLSen7LZXKVl_HuiePaFzG_0Boo6V3J5lJgzt3oPeSfPr4HTIEA/viewform) and put in `GibsonSim2RealCallenge/gibson-challenge-data`
+  Download challenge data from [here](https://docs.google.com/forms/d/e/1FAIpQLSen7LZXKVl_HuiePaFzG_0Boo6V3J5lJgzt3oPeSfPr4HTIEA/viewform) and put in `GibsonSim2RealCallenge/gibson-challenge-data`.
+  
+  Also, change the directory permission.
+  ```
+  chmod -R 777 gibson-challenge-data/
+  ```
 
 - Step 5:
 
