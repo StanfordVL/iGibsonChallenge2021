@@ -43,8 +43,8 @@ Participate in the contest by registering on the EvalAI challenge page and creat
 ### Local Evaluation
 - Step 1: Clone the challenge repository
   ```bash
-  git clone https://github.com/StanfordVL/GibsonSim2RealCallenge.git
-  cd GibsonSim2RealCallenge
+  git clone https://github.com/StanfordVL/GibsonSim2RealChallenge.git
+  cd GibsonSim2RealChallenge
   ```
 
   Three example agents are provided in `simple_agent.py` and `rl_agent.py`: `RandomAgent`, `ForwardOnlyAgent`, and `SACAgent`.
