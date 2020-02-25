@@ -49,7 +49,7 @@ Participate in the contest by registering on the EvalAI challenge page and creat
 
   Three example agents are provided in `simple_agent.py` and `rl_agent.py`: `RandomAgent`, `ForwardOnlyAgent`, and `SACAgent`.
   
-  Here is `RandomAgent` defined in `simple_agent.py`.
+  Here is the `RandomAgent` defined in `simple_agent.py`.
   ```python3
   ACTION_DIM = 3
   LINEAR_VEL_DIM = 0
@@ -78,7 +78,7 @@ Participate in the contest by registering on the EvalAI challenge page and creat
           return action
   ```
   
-  Please implement your own agent and instantiate it from `agent.py`.
+  Please, implement your own agent and instantiate it from `agent.py`.
 
 - Step 2: Install nvidia-docker2, following the guide: https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0). 
 
@@ -121,7 +121,7 @@ Participate in the contest by registering on the EvalAI challenge page and creat
   ```
 
 ### Online submission
-Follow instructions in the submit tab of the EvalAI challenge page to submit your docker image. Note that you will need a version of EvalAI >= 1.2.3. Pasting those instructions here for convenience:
+Follow instructions in the submit tab of the EvalAI challenge page to submit your docker image. Note that you will need a version of EvalAI >= 1.2.3. Here we reproduce part of those instructions for convenience:
 
 ```bash
 # Installing EvalAI Command Line Interface
@@ -134,14 +134,14 @@ evalai set_token <your EvalAI participant token>
 evalai push my_submission:latest --phase <phase-name>
 ```
 
-Valid challenge phases are `sim2real-{minival-535, challenge-sim-535,  challenge-real-535}`.
+The valid challenge phases are: `sim2real-{minival-535, challenge-sim-535,  challenge-real-535}`.
 
 Our Sim2Real Challenge consists of three phases:
 
 - Phase 0: Sanity Check (`minival`): 
 The purpose of this phase is mainly for sanity checking and make sure the policy 
 can be successfully submitted and evaluated.
-Participant can submit any policy, even trivial policy to our evaluation server. 
+Participant can submit any policy, even a trivial policy, to our evaluation server to verify their entire pipeline is correct. 
 Each team is allowed maximum of 30 submission per day for this phase. 
 We will block and disqualify teams that spam our servers.
 
@@ -149,7 +149,7 @@ We will block and disqualify teams that spam our servers.
 
 - Phase 2, Real world phase (`challenge-real`): The qualified teams will receive 30 min/day to evaluate their policies on our real world robotic platform. The runs will be recorded and the videos will be provided to the teams for debugging. They will also receive a record of the states, measurements, and actions taken by the real world agent, as well as their score. The last two days (31st of May and 1st of June) are the days of the challenge and the teams will be ultimately ranked based on their scores. At the end of these two days we will announce the winner of the first Gibson Sim2Real Challenge!
 
-- Phase 3, Demo phase: To increase visibility, the best three entries of our challenge will have the opportunity to showcase their solutions live during CVPR20! We will connect directly from Seattle the 15th of June and video stream a run of each solutions, highlighting their strengths and characteristics. This will provide an opportunity for the teams to explain their solution to the CVPR audience.
+- Phase 3, Demo phase: To increase visibility, the best three entries of our challenge will have the opportunity to showcase their solutions live during CVPR20! We will connect directly from Seattle the 15th of June and video stream a run of each solutions, highlighting their strengths and characteristics. This will provide an opportunity for the teams to explain their solution to the CVPR audience. This phase is not included in our EvalAI setup.
 
 
 ### Training
