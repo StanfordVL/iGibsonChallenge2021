@@ -6,7 +6,6 @@ For an overview of the challenge, visit [the challenge website](http://svl.stanf
 
 Challenge Scenarios
 ----------------------------
-
 The first Gibson Sim2Real Challenge is composed of three navigation scenarios that represent important skills for autonomous visual navigation: 
 
 - PointNav scenario in clean environments: the goal in this scenario is for an agent to successfully navigate to a given point location based on visual information (RGB+D images). In this scenario, the agent is not allowed to collide with the environment. This scenario will evaluate the sim2real transference of the most basic capability of a navigating agent. We will evaluate performance in this scenario using Success weighted by Path Length (SPL) [3].
