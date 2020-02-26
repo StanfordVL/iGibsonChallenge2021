@@ -82,7 +82,7 @@ class SACAgent:
             })
         )
         observation_spec = time_step_spec.observation
-        action_spec = BoundedTensorSpec(shape=(3,), dtype=tf.float32, name=None,
+        action_spec = BoundedTensorSpec(shape=(2,), dtype=tf.float32, name=None,
                                         minimum=np.array(-1.0, dtype=np.float32),
                                         maximum=np.array(1.0, dtype=np.float32))
 

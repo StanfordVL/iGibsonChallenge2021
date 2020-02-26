@@ -1,5 +1,4 @@
 import argparse
-from IPython import embed
 
 from simple_agent import RandomAgent, ForwardOnlyAgent
 from rl_agent import SACAgent
