@@ -195,7 +195,7 @@ We will block and disqualify teams that spam our servers.
   ```
   This will train in all the training scenes defined in `GibsonEnvV2/gibson2/data/train.json`. After every `reload_interval` train steps, a new group of scenes will be randomly sampled and reloaded.
   
-Feel free to skip Step 4-6 if you want to use other frameworks for training. These are just example starter code for your reference.
+Feel free to skip Step 4-6 if you want to use other frameworks for training. This is just a example starter code for your reference.
 
 Acknowledgments
 -------------------
