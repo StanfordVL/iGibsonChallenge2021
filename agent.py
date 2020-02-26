@@ -6,11 +6,11 @@ from rl_agent import SACAgent
 from gibson2.envs.challenge import Challenge
 
 
-def get_agent(agent_class, ckpt_path, success_distance=0.36):
+def get_agent(agent_class, ckpt_path=""):
     if agent_class == "Random":
-        return RandomAgent(success_distance)
+        return RandomAgent()
     elif agent_class == "ForwardOnly":
-        return ForwardOnlyAgent(success_distance)
+        return ForwardOnlyAgent()
     elif agent_class == "SAC":
         return SACAgent(root_dir=ckpt_path)
 

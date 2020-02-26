@@ -43,42 +43,32 @@ Participate in the contest by registering on the EvalAI challenge page and creat
 ### Local Evaluation
 - Step 1: Clone the challenge repository
   ```bash
-  git clone https://github.com/StanfordVL/GibsonSim2RealCallenge.git
-  cd GibsonSim2RealCallenge
+  git clone https://github.com/StanfordVL/GibsonSim2RealChallenge.git
+  cd GibsonSim2RealChallenge
   ```
 
   Three example agents are provided in `simple_agent.py` and `rl_agent.py`: `RandomAgent`, `ForwardOnlyAgent`, and `SACAgent`.
   
-  Here is `RandomAgent` defined in `simple_agent.py`.
+  Here is the `RandomAgent` defined in `simple_agent.py`.
   ```python3
-  ACTION_DIM = 3
+  ACTION_DIM = 2
   LINEAR_VEL_DIM = 0
   ANGULAR_VEL_DIM = 1
-  STOP_DIM = 2
 
 
   class RandomAgent:
-      def __init__(self, success_distance):
-          self.dist_threshold_to_stop = success_distance
+      def __init__(self):
+          pass
 
       def reset(self):
           pass
 
-      def is_goal_reached(self, observations):
-          dist = observations["sensor"][0]
-          return dist <= self.dist_threshold_to_stop
-
       def act(self, observations):
-          action = np.zeros(ACTION_DIM)
-          if self.is_goal_reached(observations):
-              action[STOP_DIM] = 1.0
-          else:
-              action = np.random.uniform(low=-1, high=1, size=(ACTION_DIM,))
-              action[STOP_DIM] = -1.0
+          action = np.random.uniform(low=-1, high=1, size=(ACTION_DIM,))
           return action
   ```
   
-  Please implement your own agent and instantiate it from `agent.py`.
+  Please, implement your own agent and instantiate it from `agent.py`.
 
 - Step 2: Install nvidia-docker2, following the guide: https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0). 
 
@@ -92,13 +82,13 @@ Participate in the contest by registering on the EvalAI challenge page and creat
   WORKDIR /
   ```
 
-  Build your docker container: `docker build . -t my_submission` , where `my_submission` is the docker image name you want to use.
+  Then build your docker container with `docker build . -t my_submission` , where `my_submission` is the docker image name you want to use.
 
 - Step 4: 
 
-  Download challenge data from [here](https://docs.google.com/forms/d/e/1FAIpQLSen7LZXKVl_HuiePaFzG_0Boo6V3J5lJgzt3oPeSfPr4HTIEA/viewform) and put in `GibsonSim2RealCallenge/gibson-challenge-data`.
+  Download challenge data from [here](https://docs.google.com/forms/d/e/1FAIpQLSen7LZXKVl_HuiePaFzG_0Boo6V3J5lJgzt3oPeSfPr4HTIEA/viewform) and decompress in `GibsonSim2RealChallenge/gibson-challenge-data`. The file you need to download is called `gibson-challenge-data.tar.gz`.
   
-  Also, change the directory permission.
+  Please, change the permissions of the directory and subdirectories:
   ```
   chmod -R 777 gibson-challenge-data/
   ```
@@ -121,7 +111,7 @@ Participate in the contest by registering on the EvalAI challenge page and creat
   ```
 
 ### Online submission
-Follow instructions in the submit tab of the EvalAI challenge page to submit your docker image. Note that you will need a version of EvalAI >= 1.2.3. Pasting those instructions here for convenience:
+Follow instructions in the submit tab of the EvalAI challenge page to submit your docker image. Note that you will need a version of EvalAI >= 1.2.3. Here we reproduce part of those instructions for convenience:
 
 ```bash
 # Installing EvalAI Command Line Interface
@@ -134,22 +124,22 @@ evalai set_token <your EvalAI participant token>
 evalai push my_submission:latest --phase <phase-name>
 ```
 
-Valid challenge phases are `sim2real-{minival-535, challenge-sim-535,  challenge-real-535}`.
+The valid challenge phases are: `sim2real-{minival-535, challenge-sim-535,  challenge-real-535}`.
 
 Our Sim2Real Challenge consists of three phases:
 
-- Phase 0: Sanity Check (`minival`): 
+- Phase 0: Sanity Check (`minival-535`): 
 The purpose of this phase is mainly for sanity checking and make sure the policy 
 can be successfully submitted and evaluated.
-Participant can submit any policy, even trivial policy to our evaluation server. 
+Participant can submit any policy, even a trivial policy, to our evaluation server to verify their entire pipeline is correct. 
 Each team is allowed maximum of 30 submission per day for this phase. 
 We will block and disqualify teams that spam our servers.
 
-- Phase 1, Simulation phase (`challenge-sim`): In this phase participants will develop their solutions in our simulator, Interactive Gibson. They will get access to all Gibson 3D reconstructed scenes (572 total, 72 high quality ones, which we recommend for training) and an additional 3D reconstructed scene called Castro that contains part of real world apartment we will use in Phase 2. We will keep the other part of the apartment, which we call CastroUnseen, to perform the evaluation. Participants can submit their solutions at any time through the EvalAI portal (link coming soon). At the end of the simulation challenge period (May 15), the best ten solutions will pass to the second phase, the real world phase. As part of our collaboration with Facebook, the top five teams from the Habitat Challenge will also take part in the phase 2 of our challenge and will test their solutions in real world.
+- Phase 1, Simulation phase (`challenge-sim-535`): In this phase participants will develop their solutions in our simulator, Interactive Gibson. They will get access to all Gibson 3D reconstructed scenes (572 total, 72 high quality ones, which we recommend for training) and an additional 3D reconstructed scene called Castro that contains part of real world apartment we will use in Phase 2. We will keep the other part of the apartment, which we call CastroUnseen, to perform the evaluation. Participants can submit their solutions at any time through the EvalAI portal (link coming soon). At the end of the simulation challenge period (May 15), the best ten solutions will pass to the second phase, the real world phase. As part of our collaboration with Facebook, the top five teams from the Habitat Challenge will also take part in the phase 2 of our challenge and will test their solutions in real world.
 
-- Phase 2, Real world phase (`challenge-real`): The qualified teams will receive 30 min/day to evaluate their policies on our real world robotic platform. The runs will be recorded and the videos will be provided to the teams for debugging. They will also receive a record of the states, measurements, and actions taken by the real world agent, as well as their score. The last two days (31st of May and 1st of June) are the days of the challenge and the teams will be ultimately ranked based on their scores. At the end of these two days we will announce the winner of the first Gibson Sim2Real Challenge!
+- Phase 2, Real world phase (`challenge-real-535`): The qualified teams will receive 30 min/day to evaluate their policies on our real world robotic platform. The runs will be recorded and the videos will be provided to the teams for debugging. They will also receive a record of the states, measurements, and actions taken by the real world agent, as well as their score. The last two days (31st of May and 1st of June) are the days of the challenge and the teams will be ultimately ranked based on their scores. At the end of these two days we will announce the winner of the first Gibson Sim2Real Challenge!
 
-- Phase 3, Demo phase: To increase visibility, the best three entries of our challenge will have the opportunity to showcase their solutions live during CVPR20! We will connect directly from Seattle the 15th of June and video stream a run of each solutions, highlighting their strengths and characteristics. This will provide an opportunity for the teams to explain their solution to the CVPR audience.
+- Phase 3, Demo phase: To increase visibility, the best three entries of our challenge will have the opportunity to showcase their solutions live during CVPR20! We will connect directly from Seattle the 15th of June and video stream a run of each solutions, highlighting their strengths and characteristics. This will provide an opportunity for the teams to explain their solution to the CVPR audience. This phase is not included in our EvalAI setup.
 
 
 ### Training
@@ -205,7 +195,7 @@ We will block and disqualify teams that spam our servers.
   ```
   This will train in all the training scenes defined in `GibsonEnvV2/gibson2/data/train.json`. After every `reload_interval` train steps, a new group of scenes will be randomly sampled and reloaded.
   
-Feel free to skip Step 4-6 if you want to use other frameworks for training. These are just example starter code for your reference.
+Feel free to skip Step 4-6 if you want to use other frameworks for training. This is just a example starter code for your reference.
 
 Acknowledgments
 -------------------

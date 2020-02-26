@@ -6,15 +6,11 @@ ANGULAR_VEL_DIM = 1
 
 
 class RandomAgent:
-    def __init__(self, success_distance):
-        self.dist_threshold_to_stop = success_distance
+    def __init__(self):
+        pass
 
     def reset(self):
         pass
-
-    def is_goal_reached(self, observations):
-        dist = observations["sensor"][0]
-        return dist <= self.dist_threshold_to_stop
 
     def act(self, observations):
         action = np.random.uniform(low=-1, high=1, size=(ACTION_DIM,))
@@ -36,10 +32,10 @@ if __name__ == "__main__":
         'sensor': np.ones((2,))
     }
 
-    agent = RandomAgent(success_distance=0.36)
+    agent = RandomAgent()
     action = agent.act(obs)
     print('action', action)
 
-    agent = ForwardOnlyAgent(success_distance=0.36)
+    agent = ForwardOnlyAgent()
     action = agent.act(obs)
     print('action', action)

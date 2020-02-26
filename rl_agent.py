@@ -16,6 +16,9 @@ from tf_agents.utils import common
 from tf_agents.trajectories.time_step import TimeStep
 from tensorflow.python.framework.tensor_spec import TensorSpec, BoundedTensorSpec
 
+IMG_WIDTH = 160
+IMG_HEIGHT = 90
+SENSOR_DIM = 4
 
 def normal_projection_net(action_spec,
                           init_action_stddev=0.35,
@@ -35,9 +38,9 @@ class SACAgent:
             self,
             root_dir,
             conv_1d_layer_params=[(32, 8, 4), (64, 4, 2), (64, 3, 1)],
-            conv_2d_layer_params=[(32, (8, 8), 4), (64, (4, 4), 2), (64, (3, 3), 1)],
+            conv_2d_layer_params=[(32, (8, 8), 4), (64, (4, 4), 2), (64, (3, 3), 2)],
             encoder_fc_layers=[256],
-            actor_fc_layers=[256, 256],
+            actor_fc_layers=[256],
             critic_obs_fc_layers=[256],
             critic_action_fc_layers=[256],
             critic_joint_fc_layers=[256],
@@ -62,7 +65,7 @@ class SACAgent:
         tf.compat.v1.enable_resource_variables()
 
         root_dir = os.path.expanduser(root_dir)
-        train_dir = os.path.join(root_dir, 'train')
+        policy_dir = os.path.join(root_dir, 'train', 'policy')
 
         time_step_spec = TimeStep(
             TensorSpec(shape=(), dtype=tf.int32, name='step_type'),
@@ -70,13 +73,13 @@ class SACAgent:
             BoundedTensorSpec(shape=(), dtype=tf.float32, name='discount',
                               minimum=np.array(0., dtype=np.float32), maximum=np.array(1., dtype=np.float32)),
             collections.OrderedDict({
-                'sensor': BoundedTensorSpec(shape=(2,), dtype=tf.float32, name=None,
+                'sensor': BoundedTensorSpec(shape=(SENSOR_DIM,), dtype=tf.float32, name=None,
                                             minimum=np.array(-3.4028235e+38, dtype=np.float32),
                                             maximum=np.array(3.4028235e+38, dtype=np.float32)),
-                'depth': BoundedTensorSpec(shape=(180, 320, 1), dtype=tf.float32, name=None,
+                'depth': BoundedTensorSpec(shape=(IMG_HEIGHT, IMG_WIDTH, 1), dtype=tf.float32, name=None,
                                            minimum=np.array(-1.0, dtype=np.float32),
                                            maximum=np.array(1.0, dtype=np.float32)),
-                'rgb': BoundedTensorSpec(shape=(180, 320, 3), dtype=tf.float32, name=None,
+                'rgb': BoundedTensorSpec(shape=(IMG_HEIGHT, IMG_WIDTH, 3), dtype=tf.float32, name=None,
                                          minimum=np.array(-1.0, dtype=np.float32),
                                          maximum=np.array(1.0, dtype=np.float32)),
             })
@@ -168,20 +171,20 @@ class SACAgent:
         else:
             self.eval_py_policy = py_tf_policy.PyTFPolicy(tf_agent.policy)
 
-        train_checkpointer = common.Checkpointer(
-            ckpt_dir=train_dir,
-            agent=tf_agent,
+        policy_checkpointer = common.Checkpointer(
+            ckpt_dir=policy_dir,
+            policy=tf_agent.policy,
             global_step=global_step)
 
         with self.sess.as_default():
             # Initialize graph.
-            train_checkpointer.initialize_or_restore(self.sess)
+            policy_checkpointer.initialize_or_restore(self.sess)
 
         # activate the session
         obs = {
-            'depth': np.ones((180, 320, 1)),
-            'rgb': np.ones((180, 320, 3)),
-            'sensor': np.ones((2,))
+            'depth': np.ones((IMG_HEIGHT, IMG_WIDTH, 1)),
+            'rgb': np.ones((IMG_HEIGHT, IMG_WIDTH, 3)),
+            'sensor': np.ones((SENSOR_DIM,))
         }
         action = self.act(obs)
         print('activate TF session')
@@ -210,9 +213,9 @@ class SACAgent:
 
 if __name__ == "__main__":
     obs = {
-        'depth': np.ones((180, 320, 1)),
-        'rgb': np.ones((180, 320, 3)),
-        'sensor': np.ones((2,))
+        'depth': np.ones((IMG_HEIGHT, IMG_WIDTH, 1)),
+        'rgb': np.ones((IMG_HEIGHT, IMG_WIDTH, 3)),
+        'sensor': np.ones((SENSOR_DIM,))
     }
     agent = SACAgent(root_dir='test')
     action = agent.act(obs)
