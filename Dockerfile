@@ -5,5 +5,5 @@ ADD agent.py /agent.py
 ADD simple_agent.py /simple_agent.py
 ADD rl_agent.py /rl_agent.py
 
-ADD submission.sh /srlubmission.sh
+ADD submission.sh /submission.sh
 WORKDIR /
