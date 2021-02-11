@@ -1,29 +1,19 @@
-Sim2Real Challenge with Gibson @ CVPR 2020
+Social and Interactive Nav Challenge with iGibson @ CVPR 2021
 =============================================
 
 This repository contains starter code for sim2real challenge with Gibson brought to you by [Stanford VL](http://svl.stanford.edu) and [Robotics @ Google](https://research.google/teams/brain/robotics/). 
-For an overview of the challenge, visit [the challenge website](http://svl.stanford.edu/gibson2/challenge.html).
+For an overview of the challenge, visit [the challenge website](http://svl.stanford.edu/gibson2/challenge2021.html).
 
 Challenge Scenarios
 ----------------------------
-The first Gibson Sim2Real Challenge is composed of three navigation scenarios that represent important skills for autonomous visual navigation: 
 
-- PointNav scenario in clean environments: the goal in this scenario is for an agent to successfully navigate to a given point location based on visual information (RGB+D images). In this scenario, the agent is not allowed to collide with the environment. This scenario will evaluate the sim2real transference of the most basic capability of a navigating agent. We will evaluate performance in this scenario using Success weighted by Path Length (SPL) [3].
+TBA
 
-- PointNav scenario with interactive objects: in this scenario the agent is allowed (even encouraged) to collide and interact with the environment in order to push obstacles away. But careful! Some of the obstacles are not movable. This scenario evaluates agents in Interactive Navigation tasks [1], navigation problems that considers interactions with the environment. We will use Interactive Navigation Score (INS) [1] to evaluate performance of agents in this scenario.
-
-- PointNav scenario among dynamic agents: the goal in this scenario is to navigate to the given point location avoiding collisions with a dynamic agent that follows unknown navigating patterns. Reasoning, predicting and avoiding other moving agents is challenging, and we will measure how well existing solutions perform in this conditions. As with PointNav scenarios in clean environments, no collisions are allowed in this scenario. We will use again SPL to evaluate the performance of the controlled agent.
-All submissions to our challenge will be evaluated in all three scenarios. The ranking will depend on the performance on the three scenarios but we will provide insights about the performance in each of them.
 
 Challenge Dataset
 ----------------------------
 
-We used navigation episodes Habitat created as the main dataset for the challenge. In addition, we scanned a 
-new house named "Castro" and use part of it for training. The evaluation will be in Castro in both sim and real.
-
-- Training scenes: 72 Gibson Scenes + Castro
-- Dev scenes: Castro(Sim), Castro(Real)
-- Evaluation scenes: CastroUnseen(Sim), CastroUnseen(Real)
+TBA
 
 
 Evaluation
