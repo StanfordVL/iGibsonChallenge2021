@@ -10,7 +10,7 @@ case $key in
       --docker-name)
       shift
       DOCKER_NAME="${1}"
-      shift
+	  shift
       ;;
     *) # unknown arg
       echo unkown arg ${1}
@@ -20,8 +20,8 @@ esac
 done
 
 
-docker run -v $(pwd)/gibson_challenge_data_2021:/opt/iGibson/gibson2/data \
+docker run -v $(pwd)/gibson-challenge-data:/gibson-challenge-data \
     --runtime=nvidia \
     ${DOCKER_NAME} \
     /bin/bash -c \
-    "export CHALLENGE_TRACK=social; bash submission.sh"
+    "export CONFIG_FILE=/gibson-challenge-data/locobot_p2p_nav_house.yaml; export SIM2REAL_TRACK=static; cp /gibson-challenge-data/global_config.yaml /opt/GibsonEnvV2/gibson2/global_config.yaml; bash submission.sh"
