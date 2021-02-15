@@ -19,15 +19,15 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--agent-class", type=str, default="Random", choices=["Random", "ForwardOnly", "SAC"])
     parser.add_argument("--ckpt-path", default="", type=str)
-    parser.add_argument("--challenge-track", required=True, choices=["social", "interactive"])
-    
+    #parser.add_argument("--challenge-track", required=True, choices=["social", "interactive"])
+
     args = parser.parse_args()
 
     agent = get_agent(
         agent_class=args.agent_class,
         ckpt_path=args.ckpt_path
     )
-    challenge = Challenge(track=args.challenge_track)
+    challenge = Challenge()
     challenge.submit(agent)
 
 
