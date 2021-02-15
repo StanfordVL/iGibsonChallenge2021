@@ -20,7 +20,7 @@ esac
 done
 
 
-docker run -v $(pwd)/gibson-challenge-data:/gibson-challenge-data \
+docker run -v $(pwd)/gibson_challenge_data_2021:/opt/iGibson/gibson2/data \
     --runtime=nvidia \
     ${DOCKER_NAME} \
     /bin/bash -c \
