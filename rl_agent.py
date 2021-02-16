@@ -18,7 +18,7 @@ from tensorflow.python.framework.tensor_spec import TensorSpec, BoundedTensorSpe
 
 IMG_WIDTH = 160
 IMG_HEIGHT = 90
-SENSOR_DIM = 4
+TASK_OBS_DIM = 4
 
 def normal_projection_net(action_spec,
                           init_action_stddev=0.35,
@@ -73,7 +73,7 @@ class SACAgent:
             BoundedTensorSpec(shape=(), dtype=tf.float32, name='discount',
                               minimum=np.array(0., dtype=np.float32), maximum=np.array(1., dtype=np.float32)),
             collections.OrderedDict({
-                'sensor': BoundedTensorSpec(shape=(SENSOR_DIM,), dtype=tf.float32, name=None,
+                'task_obs': BoundedTensorSpec(shape=(TASK_OBS_DIM,), dtype=tf.float32, name=None,
                                             minimum=np.array(-3.4028235e+38, dtype=np.float32),
                                             maximum=np.array(3.4028235e+38, dtype=np.float32)),
                 'depth': BoundedTensorSpec(shape=(IMG_HEIGHT, IMG_WIDTH, 1), dtype=tf.float32, name=None,
@@ -107,8 +107,8 @@ class SACAgent:
                 kernel_initializer=glorot_uniform_initializer,
             ))
 
-        if 'sensor' in observation_spec:
-            preprocessing_layers['sensor'] = tf.keras.Sequential(mlp_layers(
+        if 'task_obs' in observation_spec:
+            preprocessing_layers['task_obs'] = tf.keras.Sequential(mlp_layers(
                 conv_1d_layer_params=None,
                 conv_2d_layer_params=None,
                 fc_layer_params=encoder_fc_layers,
@@ -184,7 +184,7 @@ class SACAgent:
         obs = {
             'depth': np.ones((IMG_HEIGHT, IMG_WIDTH, 1)),
             'rgb': np.ones((IMG_HEIGHT, IMG_WIDTH, 3)),
-            'sensor': np.ones((SENSOR_DIM,))
+            'task_obs': np.ones((TASK_OBS_DIM,))
         }
         action = self.act(obs)
         print('activate TF session')
@@ -215,7 +215,7 @@ if __name__ == "__main__":
     obs = {
         'depth': np.ones((IMG_HEIGHT, IMG_WIDTH, 1)),
         'rgb': np.ones((IMG_HEIGHT, IMG_WIDTH, 3)),
-        'sensor': np.ones((SENSOR_DIM,))
+        'task_obs': np.ones((TASK_OBS_DIM,))
     }
     agent = SACAgent(root_dir='test')
     action = agent.act(obs)

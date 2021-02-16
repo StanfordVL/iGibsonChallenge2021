@@ -135,7 +135,8 @@ We will block and disqualify teams that spam our servers.
 ### Training
 
 #### Using Docker
-`./train_locally.sh --docker-name my_submission`
+Train with minival split (with only one of the training scene: Rs_int): `./train_minival_locally.sh --docker-name my_submission`
+Train with train split (with all eight training scenes): `./train_locally.sh --docker-name my_submission`
 
 #### Not using Docker
 - Step 0: install [anaconda](https://docs.anaconda.com/anaconda/install/) and create a python3.6 environment
@@ -149,41 +150,32 @@ We will block and disqualify teams that spam our servers.
   ```
   sudo apt-get install libegl1-mesa-dev
   ```
-- Step 3: install [GibsonEnvV2](https://github.com/StanfordVL/GibsonEnvV2) and download Gibson [assets](https://storage.googleapis.com/gibsonassets/assets_gibson_v2.tar.gz) and [dataset](https://docs.google.com/forms/d/e/1FAIpQLSen7LZXKVl_HuiePaFzG_0Boo6V3J5lJgzt3oPeSfPr4HTIEA/viewform) by following the [documentation](http://svl.stanford.edu/gibson2/docs/). Please use the `gibson_sim2real` branch instead of the `master` branch.
+- Step 3: install [iGibson](http://svl.stanford.edu/igibson/) and download iGibson [TODO: assets](http://svl.stanford.edu/igibson/) and [TODO: dataset](http://svl.stanford.edu/igibson/) by following the [documentation](http://svl.stanford.edu/igibson/docs).
+
+Please use the `cvpr21_challenge` branch instead of the `master` branch.
   ```
-  cd GibsonEnvV2
-  git checkout gibson_sim2real
+  cd iGibson
+  git checkout cvpr21_challenge
   ```
-- Step 4: install [our fork of tf-agents](https://github.com/StanfordVL/agents). Please use the `gibson_sim2real` branch instead of the `master` branch.
+- Step 4: install [our fork of tf-agents](https://github.com/StanfordVL/agents). Please use the `cvpr21_challenge` branch instead of the `master` branch.
   ```
   cd agents
-  git checkout gibson_sim2real
+  git checkout cvpr21_challenge
   pip install tensorflow-gpu==1.15.0
   pip install -e .
   ```
-- Step 5: start training!
+- Step 5: start training ((with only one of the training scene: Rs_int)!
   ```
   cd agents
-  
-  # SAC
-  ./tf_agents/agents/sac/examples/v1/train_single_env.sh
-
-  # DDPG / PPO
-  TBA
+  ./tf_agents/agents/sac/examples/v1/train_minival.sh
   ```
   This will train in one single scene specified by `model_id` in `config_file`.
 
-- Step 6: scale up training!
+- Step 6: scale up training (with all eight training scenes)!
   ```
   cd agents
-  
-  # SAC
-  ./tf_agents/agents/sac/examples/v1/train_multiple_env.sh
-
-  # DDPG / PPO
-  TBA
+  ./tf_agents/agents/sac/examples/v1/train.sh
   ```
-  This will train in all the training scenes defined in `GibsonEnvV2/gibson2/data/train.json`. After every `reload_interval` train steps, a new group of scenes will be randomly sampled and reloaded.
   
 Feel free to skip Step 4-6 if you want to use other frameworks for training. This is just a example starter code for your reference.
 

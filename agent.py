@@ -19,7 +19,6 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--agent-class", type=str, default="Random", choices=["Random", "ForwardOnly", "SAC"])
     parser.add_argument("--ckpt-path", default="", type=str)
-    #parser.add_argument("--challenge-track", required=True, choices=["social", "interactive"])
 
     args = parser.parse_args()
 
