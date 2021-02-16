@@ -151,7 +151,7 @@ Train with train split (with all eight training scenes): `./train_locally.sh --d
   ```
   sudo apt-get install libegl1-mesa-dev
   ```
-- Step 3: install [iGibson](http://svl.stanford.edu/igibson/) *from source* and download iGibson [TODO: assets](http://svl.stanford.edu/igibson/) and [TODO: dataset](http://svl.stanford.edu/igibson/) by following the [documentation](http://svl.stanford.edu/igibson/docs). Please use the `cvpr21_challenge` branch instead of the `master` branch.
+- Step 3: install [iGibson](http://svl.stanford.edu/igibson/) and download iGibson [TODO: assets](http://svl.stanford.edu/igibson/) and [TODO: dataset](http://svl.stanford.edu/igibson/) by following the [documentation](http://svl.stanford.edu/igibson/docs). Please use the `cvpr21_challenge` branch instead of the `master` branch.
   ```
   cd iGibson
   git fetch
@@ -166,7 +166,7 @@ Train with train split (with all eight training scenes): `./train_locally.sh --d
   pip install tensorflow-gpu==1.15.0
   pip install -e .
   ```
-- Step 5: start training (with only one of the training scene: Rs_int)!
+- Step 5: start training ((with only one of the training scene: Rs_int)!
   ```
   cd agents
   ./tf_agents/agents/sac/examples/v1/train_minival.sh
