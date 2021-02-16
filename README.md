@@ -136,7 +136,6 @@ We will block and disqualify teams that spam our servers.
 
 #### Using Docker
 Train with minival split (with only one of the training scene: Rs_int): `./train_minival_locally.sh --docker-name my_submission`
-
 Train with train split (with all eight training scenes): `./train_locally.sh --docker-name my_submission`
 
 #### Not using Docker
@@ -151,17 +150,16 @@ Train with train split (with all eight training scenes): `./train_locally.sh --d
   ```
   sudo apt-get install libegl1-mesa-dev
   ```
-- Step 3: install [iGibson](http://svl.stanford.edu/igibson/) and download iGibson [TODO: assets](http://svl.stanford.edu/igibson/) and [TODO: dataset](http://svl.stanford.edu/igibson/) by following the [documentation](http://svl.stanford.edu/igibson/docs). Please use the `cvpr21_challenge` branch instead of the `master` branch.
+- Step 3: install [iGibson](http://svl.stanford.edu/igibson/) and download iGibson [TODO: assets](http://svl.stanford.edu/igibson/) and [TODO: dataset](http://svl.stanford.edu/igibson/) by following the [documentation](http://svl.stanford.edu/igibson/docs).
+
+Please use the `cvpr21_challenge` branch instead of the `master` branch.
   ```
   cd iGibson
-  git fetch
   git checkout cvpr21_challenge
-  pip install -e .
   ```
 - Step 4: install [our fork of tf-agents](https://github.com/StanfordVL/agents). Please use the `cvpr21_challenge` branch instead of the `master` branch.
   ```
   cd agents
-  git fetch
   git checkout cvpr21_challenge
   pip install tensorflow-gpu==1.15.0
   pip install -e .
