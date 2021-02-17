@@ -140,13 +140,13 @@ evalai set_token <your EvalAI participant token>
 evalai push my_submission:latest --phase <phase-name>
 ```
 
-The valid challenge phases are: `sim2real-{minival-535, challenge-sim-535,  challenge-real-535}`.
+The valid challenge phases are: TBA.
 
 Our iGibson Challenge 2021 consists of four phases:
 
-- Minival Phase (`minival-535`): The purpose of this phase to make sure your policy can be successfully submitted and evaluated. Participants are expected to download our starter code and submit a baseline policy, even a trivial one, to our evaluation server to verify their entire pipeline is correct.
-- Dev Phase (`challenge-sim-535`): This phase is split into Interactive Navigation and Social Navigation tasks. Participants are expected to submit their solutions to **each** of the tasks separately. You may use the exact same policy for both tasks if you want, but you still need to submit twice. The results will be evaluated on the dataset **dev** split and the leaderboard will be updated within 24 hours.
-- Test Phase (`challenge-real-535`): This phase is also split into Interactive Navigation and Social Navigation. Participants are expected to submit a maximum of 5 solutions during the last 15 days of the challenge. The solutions will be evaluated on the dataset **test split** and the results will NOT be made available until the end of the challenge.
+- Minival Phase: The purpose of this phase to make sure your policy can be successfully submitted and evaluated. Participants are expected to download our starter code and submit a baseline policy, even a trivial one, to our evaluation server to verify their entire pipeline is correct.
+- Dev Phase: This phase is split into Interactive Navigation and Social Navigation tasks. Participants are expected to submit their solutions to **each** of the tasks separately. You may use the exact same policy for both tasks if you want, but you still need to submit twice. The results will be evaluated on the dataset **dev** split and the leaderboard will be updated within 24 hours.
+- Test Phase: This phase is also split into Interactive Navigation and Social Navigation. Participants are expected to submit a maximum of 5 solutions during the last 15 days of the challenge. The solutions will be evaluated on the dataset **test split** and the results will NOT be made available until the end of the challenge.
 - Winner Demo Phase: To increase visibility, the best three entries of each task of our challenge will have the opportunity to showcase their solutions in live or recorded video format during CVPR2021! All the top runners will be able to highlight their solutions and findings to the CVPR audience. Feel free to check out [our presentation](https://www.youtube.com/watch?v=0BvUSjcc0jw&list=PL4XI7L9Xv5fVUMEb1eYOaH8y1b6j8xiMM) and [our participants' presentations](https://www.youtube.com/watch?v=NBE-iXpyCCU&list=PL4XI7L9Xv5fVULPNAqiGQ2yK07k78-02h) from our challenge last year on YouTube.
 
 
