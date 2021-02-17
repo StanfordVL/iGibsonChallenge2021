@@ -7,15 +7,15 @@ For an overview of the workshop, visit [the workshop website](https://embodied-a
 
 Tasks
 ----------------------------
-The iGibson Challenge 2021 is composed of two navigation tasks that represent important skills for autonomous visual navigation:
+The iGibson Challenge 2021 uses the iGibson simulator [1] and is composed of two navigation tasks that represent important skills for autonomous visual navigation:
 
 Interactive Navigation            |  Social Navigation
 :-------------------------:|:-------------------------:
 <img src="images/cvpr21_interactive_nav.png" height="400"> | <img src="images/cvpr21_social_nav.png" height="400">
 
-- **Interactive Navigation**: the agent is required to reach a navigation goal specified by a coordinate (as in PointNav]) given visual information (RGB+D images). The agent is allowed (or even encouraged) to collide and interact with the environment in order to push obstacles away to clear the path. Note that all objects in our scenes are assigned realistic physical weight and fully interactable. However, as in the real world, while some objects are light and movable by the robot, others are not. Along with the furniture objects originally in the scenes, we also add additional objects (e.g. shoes and toys) from the Google Scanned Objects dataset to simulate real-world clutter. We will use Interactive Navigation Score (INS) to evaluate agents' performance in this task.
+- **Interactive Navigation**: the agent is required to reach a navigation goal specified by a coordinate (as in PointNav [2]) given visual information (RGB+D images). The agent is allowed (or even encouraged) to collide and interact with the environment in order to push obstacles away to clear the path. Note that all objects in our scenes are assigned realistic physical weight and fully interactable. However, as in the real world, while some objects are light and movable by the robot, others are not. Along with the furniture objects originally in the scenes, we also add additional objects (e.g. shoes and toys) from the Google Scanned Objects dataset to simulate real-world clutter. We will use Interactive Navigation Score (INS) [3] to evaluate agents' performance in this task.
 
-- **Social Navigation**: the agent is required to navigate the goal specified by a coordinate while moving around pedestrians in the environment. Pedestrians in the scene move towards randomly sampled locations, and their movement is simulated using the social-forces model ORCA [3]. The agent shall avoid collisions or proximity to pedestrians beyond a threshold (distance <0.3 meter) to avoid episode termination. It should also maintain a comfortable distance to pedestrians (distance <0.5 meter), beyond which the score is penalized but episodes are not terminated. We will use the average of STL (Success weighted by Time Length) and PSC (Personal Space Compliance) to evaluate the agents' performance. More details can be found in the "Evaluation Metrics" section below.
+- **Social Navigation**: the agent is required to navigate the goal specified by a coordinate while moving around pedestrians in the environment. Pedestrians in the scene move towards randomly sampled locations, and their movement is simulated using the social-forces model ORCA [4] integrated in iGibson [1], similar to the simulation enviroments in [5]. The agent shall avoid collisions or proximity to pedestrians beyond a threshold (distance <0.3 meter) to avoid episode termination. It should also maintain a comfortable distance to pedestrians (distance <0.5 meter), beyond which the score is penalized but episodes are not terminated. We will use the average of STL (Success weighted by Time Length) and PSC (Personal Space Compliance) to evaluate the agents' performance. More details can be found in the "Evaluation Metrics" section below.
 
 
 Evaluation Metrics
@@ -202,10 +202,12 @@ Feel free to skip Step 4-6 if you want to use other frameworks for training. Thi
 
 References 
 -------------------
-[1] [On evaluation of embodied navigation agents](https://arxiv.org/abs/1807.06757). Peter Anderson, Angel Chang, Devendra Singh Chaplot, Alexey Dosovitskiy, Saurabh Gupta, Vladlen Koltun, Jana Kosecka, Jitendra Malik, Roozbeh Mottaghi, Manolis Savva, Amir R. Zamir. arXiv:1807.06757, 2018.
+[1] [iGibson, a Simulation Environment for Interactive Tasks in Large Realistic Scenes](https://arxiv.org/abs/2012.02924). Bokui Shen, Fei Xia, Chengshu Li, Roberto Martín-Martín, Linxi Fan, Guanzhi Wang, Shyamal Buch, Claudia D'Arpino, Sanjana Srivastava, Lyne P Tchapmi, Micael E Tchapmi, Kent Vainio, Li Fei-Fei, Silvio Savarese. Preprint arXiv:2012.02924, 2020.
 
-[2] [Interactive Gibson: A Benchmark for Interactive Navigation in Cluttered Environments](https://ieeexplore.ieee.org/abstract/document/8954627/).  Xia, Fei, William B. Shen, Chengshu Li, Priya Kasimbeg, Micael Tchapmi, Alexander Toshev, Roberto Martín-Martín, and Silvio Savarese. arXiv preprint arXiv:1910.14442 (2019).
+[2] [On evaluation of embodied navigation agents](https://arxiv.org/abs/1807.06757). Peter Anderson, Angel Chang, Devendra Singh Chaplot, Alexey Dosovitskiy, Saurabh Gupta, Vladlen Koltun, Jana Kosecka, Jitendra Malik, Roozbeh Mottaghi, Manolis Savva, Amir R. Zamir. arXiv:1807.06757, 2018.
 
-[3] [RVO2 Library: Reciprocal Collision Avoidance for Real-Time Multi-Agent Simulation](https://gamma.cs.unc.edu/RVO2/). Jur van den Berg, Stephen J. Guy, Jamie Snape, Ming C. Lin, and Dinesh Manocha, 2011.
+[3] [Interactive Gibson: A Benchmark for Interactive Navigation in Cluttered Environments](https://ieeexplore.ieee.org/abstract/document/8954627/).  Xia, Fei, William B. Shen, Chengshu Li, Priya Kasimbeg, Micael Tchapmi, Alexander Toshev, Roberto Martín-Martín, and Silvio Savarese. arXiv preprint arXiv:1910.14442 (2019).
 
+[4] [RVO2 Library: Reciprocal Collision Avoidance for Real-Time Multi-Agent Simulation](https://gamma.cs.unc.edu/RVO2/). Jur van den Berg, Stephen J. Guy, Jamie Snape, Ming C. Lin, and Dinesh Manocha, 2011.
 
+[5] [Robot Navigation in Constrained Pedestrian Environments using Reinforcement Learning](https://arxiv.org/abs/2010.08600) Claudia Pérez-D'Arpino, Can Liu, Patrick Goebel, Roberto Martín-Martín and Silvio Savarese. Preprint arXiv:2010.08600, 2020.
