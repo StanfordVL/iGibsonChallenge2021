@@ -6,9 +6,9 @@ Parameters that used in this challenge is specified as below:
 | <b>AGENT</b>                 |                                              |
 |----------------------------|----------------------------------------------|
 | HEIGHT (m)                 | 0.88m                                         |
-| MASS (kg)                  | 32                                           |
+| MASS (kg)                  | 9.2                                           |
 | RADIUS                     | 0.18m                                         |
-| SENSORS                    | [RGB_SENSOR, DEPTH_SENSOR, POINTGOAL_SENSOR] |
+| SENSORS                    | [RGB_SENSOR, DEPTH_SENSOR, POINTGOAL_SENSOR, VELOCITIES_SENSOR] |
 | POSSIBLE_ACTIONS           | [LINEAR_VELOCITY, ANGULAR_VELOCITY]           |
 | MAX_EPISODE_STEPS          | 500                                          |
 |                            |                                              |
