@@ -17,10 +17,9 @@ The iGibson Challenge 2021 is composed of two navigation tasks that represent im
 Evaluation Metrics
 -----------------------------
 
-- **Interactive Navigation**: We will use Interactive Navigation Score (INS) as our evaluation metrics. INS is an average of Path Efficiency and Effort Efficiency. Path Efficiency is equivalent to SPL (Success weighted by Shortest Path). Effort Efficiency captures both the excess of displaced mass (kinematic effort) and applied force (dynamic effort) for interaction with objects. We argue that the agent needs to strike a healthy balance between taking a shorter path to the goal and causing less disturbance to the environment. More details can be found in our paper.
+- **Interactive Navigation**: We will use Interactive Navigation Score (INS) as our evaluation metrics. INS is an average of Path Efficiency and Effort Efficiency. Path Efficiency is equivalent to SPL (Success weighted by Shortest Path). Effort Efficiency captures both the excess of displaced mass (kinematic effort) and applied force (dynamic effort) for interaction with objects. We argue that the agent needs to strike a healthy balance between taking a shorter path to the goal and causing less disturbance to the environment. More details can be found in [our paper](https://ieeexplore.ieee.org/abstract/document/8954627/).
 
 - **Social Navigation**: We will use the average of STL (Success weighted by Time Length) and PSC (Personal Space Compliance) as our evaluation metrics. STL is computed by success * (time_spent_by_ORCA_agent / time_spent_by_robot_agent). The second term is the number of timesteps that an oracle ORCA agent take to reach the same goal assigned to the robot. This value is clipped by 1. In the context of Social Navigation, we argue STL is more applicable than SPL because a robot agent can achieve perfect SPL by "waiting out" all pedestrians before it makes a move, which defeats the purpose of the task. PSC (Personal Space Compliance) is computed as the percentage of timesteps that the robot agent comply with the pedestrians' personal space (distance >= 0.5 meter). We argue that the agent needs to strike a heathy balance between taking a shorted time to reach the goal and incuring less personal space violation to the pedestrians.
-
 
 Dataset
 ----------------------------
@@ -37,7 +36,7 @@ We adopt the following task setup:
 - **Action**: Desired normalized linear and angular velocity.
 - **Reward**: We provide some basic reward functions for reaching goal and making progress. Feel free to create your own.
 - **Termination conditions**: The episode termintes after 500 timesteps or the robot collides with any pedestrian in the Social Nav task.
-The tech spec for the robot and the camera sensor can be found in here.
+The tech spec for the robot and the camera sensor can be found in [here](Parameters.md).
 
 
 Participation Guidelines
