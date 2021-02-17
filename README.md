@@ -171,14 +171,15 @@ Train with train split (with all eight training scenes): `./train_locally.sh --d
   ```
   sudo apt-get install libegl1-mesa-dev
   ```
-- Step 3: install [iGibson](http://svl.stanford.edu/igibson/) **from source** and download iGibson [TODO: assets](http://svl.stanford.edu/igibson/) and [TODO: dataset](http://svl.stanford.edu/igibson/) by following the [documentation](http://svl.stanford.edu/igibson/docs). Please use the `cvpr21_challenge` branch instead of the `master` branch.
+- Step 3: install [iGibson](http://svl.stanford.edu/igibson/) **from source** by following the [documentation](http://svl.stanford.edu/igibson/docs). Please use the `cvpr21_challenge` branch instead of the `master` branch.
   ```
   cd iGibson
   git fetch
   git checkout cvpr21_challenge
   pip install -e .
   ```
-- Step 4: install [our fork of tf-agents](https://github.com/StanfordVL/agents). Please use the `cvpr21_challenge` branch instead of the `master` branch.
+- Step 4: Download challenge data by running `./download.sh` and the data will be decompressed in `gibson_challenge_data_2021`. Move the content of this folder to `iGibson/gibson2/data`.
+- Step 5: install [our fork of tf-agents](https://github.com/StanfordVL/agents). Please use the `cvpr21_challenge` branch instead of the `master` branch.
   ```
   cd agents
   git fetch
@@ -186,14 +187,14 @@ Train with train split (with all eight training scenes): `./train_locally.sh --d
   pip install tensorflow-gpu==1.15.0
   pip install -e .
   ```
-- Step 5: start training (with only one of the training scene: Rs_int)!
+- Step 6: start training (with only one of the training scene: Rs_int)!
   ```
   cd agents
   ./tf_agents/agents/sac/examples/v1/train_minival.sh
   ```
   This will train in one single scene specified by `model_id` in `config_file`.
 
-- Step 6: scale up training (with all eight training scenes)!
+- Step 7: scale up training (with all eight training scenes)!
   ```
   cd agents
   ./tf_agents/agents/sac/examples/v1/train.sh
@@ -201,7 +202,7 @@ Train with train split (with all eight training scenes): `./train_locally.sh --d
   
   The full training takes around 100G CPU memory and 10G GPU memory.
   
-Feel free to skip Step 4-6 if you want to use other frameworks for training. This is just a example starter code for your reference.
+Feel free to skip Step 5-7 if you want to use other frameworks for training. This is just a example starter code for your reference.
 
 
 References 
