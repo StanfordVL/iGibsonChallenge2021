@@ -125,6 +125,8 @@ Participate in the contest by registering on the EvalAI challenge page and creat
   Avg episode_return: -0.6209138999323173
   ...
   ```
+  
+  The script by default evaluates Social Navigation. If you want to evaluate Interactive Navigation, you need to change `CONFIG_FILE`, `TASK` and `EPISODE_DIR` in the script and make them consistent. It's recommended that you use TASK environment variable to switch agents in `agent.py` if you intend to use different policies for these two tasks.
 
 ### Online submission
 Follow instructions in the submit tab of the EvalAI challenge page to submit your docker image. Note that you will need a version of EvalAI >= 1.2.3. Here we reproduce part of those instructions for convenience:
@@ -196,6 +198,8 @@ Train with train split (with all eight training scenes): `./train_locally.sh --d
   cd agents
   ./tf_agents/agents/sac/examples/v1/train.sh
   ```
+  
+  The full training takes around 100G CPU memory and 10G GPU memory.
   
 Feel free to skip Step 4-6 if you want to use other frameworks for training. This is just a example starter code for your reference.
 
