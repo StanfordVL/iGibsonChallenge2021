@@ -178,7 +178,7 @@ Train with train split (with all eight training scenes): `./train_locally.sh --d
   git checkout cvpr21_challenge
   pip install -e .
   ```
-- Step 4: Download challenge data by running `./download.sh` and the data will be decompressed in `gibson_challenge_data_2021`. Move the content of this folder to `iGibson/gibson2/data`.
+- Step 4: Download challenge data by running `./download.sh` and the data will be decompressed in `gibson_challenge_data_2021`. Create the folder `iGibson/gibson2/data` and move the content of `gibson_challenge_data_2021` there.
 - Step 5: install [our fork of tf-agents](https://github.com/StanfordVL/agents). Please use the `cvpr21_challenge` branch instead of the `master` branch.
   ```
   cd agents
