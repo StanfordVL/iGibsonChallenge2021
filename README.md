@@ -30,7 +30,7 @@ Dataset
 
 We provide 8 scenes reconstructed from real world apartments in total for training in iGibson. All objects in the scenes are assigned realistic weight and fully interactable. For interactive navigation, we also provide 20 additional small objects (e.g. shoes and toys) from the Google Scanned Objects dataset. For fairness, please only use these scenes and objects for training.
 
-For evaluation, we will use 5 unseen scenes and 10 unseen small objects (they will share the same object categories as the 20 training small objects, but they will be different object instances).
+For evaluation, we have 2 unseen scenes in our **dev** split and 5 unseen scenes in our **test** split. We also use 10 unseen small objects (they will share the same object categories as the 20 training small objects, but they will be different object instances).
 
 Visualizations for the 8 training scenes.
 
@@ -47,6 +47,9 @@ We adopt the following task setup:
 - **Termination conditions**: The episode termintes after 500 timesteps or the robot collides with any pedestrian in the Social Nav task.
 The tech spec for the robot and the camera sensor can be found in [here](Parameters.md).
 
+For **Interactive Navigation**, we place N additional small objects (e.g. toys, shoes) near the robot's shortest path to the goal (N is proportional to the path length). These objects are generally physically lighter than the objects originally in the scenes (e.g. tables, chairs).
+
+For **Social Navigation**, we place M pedestrians randomly in the scenes that pursue their own random goals during the episode while respecting each other's personal space (M is proportional to the physical size of the scene). The pedestrians have the same maximum speed as the robot. They are aware of the robot so they won't walk straight into the robot. However, they also won't yield to the robot: if the robot moves straight towards the pedestrians, it will hit them and the episode will fail.
 
 Participation Guidelines
 -----------------------------
@@ -138,20 +141,12 @@ evalai push my_submission:latest --phase <phase-name>
 
 The valid challenge phases are: `sim2real-{minival-535, challenge-sim-535,  challenge-real-535}`.
 
-Our Sim2Real Challenge consists of three phases:
+Our iGibson Challenge 2021 consists of four phases:
 
-- Phase 0: Sanity Check (`minival-535`): 
-The purpose of this phase is mainly for sanity checking and make sure the policy 
-can be successfully submitted and evaluated.
-Participant can submit any policy, even a trivial policy, to our evaluation server to verify their entire pipeline is correct. 
-Each team is allowed maximum of 30 submission per day for this phase. 
-We will block and disqualify teams that spam our servers.
-
-- Phase 1, Simulation phase (`challenge-sim-535`): In this phase participants will develop their solutions in our simulator, Interactive Gibson. They will get access to all Gibson 3D reconstructed scenes (572 total, 72 high quality ones, which we recommend for training) and an additional 3D reconstructed scene called Castro that contains part of real world apartment we will use in Phase 2. We will keep the other part of the apartment, which we call CastroUnseen, to perform the evaluation. Participants can submit their solutions at any time through the EvalAI portal (link coming soon). At the end of the simulation challenge period (May 15), the best ten solutions will pass to the second phase, the real world phase. As part of our collaboration with Facebook, the top five teams from the Habitat Challenge will also take part in the phase 2 of our challenge and will test their solutions in real world.
-
-- Phase 2, Real world phase (`challenge-real-535`): The qualified teams will receive 30 min/day to evaluate their policies on our real world robotic platform. The runs will be recorded and the videos will be provided to the teams for debugging. They will also receive a record of the states, measurements, and actions taken by the real world agent, as well as their score. The last two days (31st of May and 1st of June) are the days of the challenge and the teams will be ultimately ranked based on their scores. At the end of these two days we will announce the winner of the first Gibson Sim2Real Challenge!
-
-- Phase 3, Demo phase: To increase visibility, the best three entries of our challenge will have the opportunity to showcase their solutions live during CVPR20! We will connect directly from Seattle the 15th of June and video stream a run of each solutions, highlighting their strengths and characteristics. This will provide an opportunity for the teams to explain their solution to the CVPR audience. This phase is not included in our EvalAI setup.
+- Minival Phase (`minival-535`): The purpose of this phase to make sure your policy can be successfully submitted and evaluated. Participants are expected to download our starter code and submit a baseline policy, even a trivial one, to our evaluation server to verify their entire pipeline is correct.
+- Dev Phase (`challenge-sim-535`): This phase is split into Interactive Navigation and Social Navigation tasks. Participants are expected to submit their solutions to **each** of the tasks separately. You may use the exact same policy for both tasks if you want, but you still need to submit twice. The results will be evaluated on the dataset **dev** split and the leaderboard will be updated within 24 hours.
+- Test Phase (`challenge-real-535`): This phase is also split into Interactive Navigation and Social Navigation. Participants are expected to submit a maximum of 5 solutions during the last 15 days of the challenge. The solutions will be evaluated on the dataset **test split** and the results will NOT be made available until the end of the challenge.
+- Winner Demo Phase: To increase visibility, the best three entries of each task of our challenge will have the opportunity to showcase their solutions in live or recorded video format during CVPR2021! All the top runners will be able to highlight their solutions and findings to the CVPR audience. Feel free to check out [our presentation](https://www.youtube.com/watch?v=0BvUSjcc0jw&list=PL4XI7L9Xv5fVUMEb1eYOaH8y1b6j8xiMM) and [our participants' presentations](https://www.youtube.com/watch?v=NBE-iXpyCCU&list=PL4XI7L9Xv5fVULPNAqiGQ2yK07k78-02h) from our challenge last year on YouTube.
 
 
 ### Training
