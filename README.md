@@ -1,30 +1,44 @@
-Social and Interactive Nav Challenge with iGibson @ CVPR 2021
+iGibson Challenge 2021 @ CVPR2021 Embodied AI Workshop
 =============================================
 
-This repository contains starter code for sim2real challenge with Gibson brought to you by [Stanford VL](http://svl.stanford.edu) and [Robotics @ Google](https://research.google/teams/brain/robotics/). 
-For an overview of the challenge, visit [the challenge website](http://svl.stanford.edu/gibson2/challenge2021.html).
+This repository contains starter code for iGibson Challenge 2021 brought to you by [Stanford Vision and Learning Lab](http://svl.stanford.edu) and [Robotics @ Google](https://research.google/teams/brain/robotics/). 
+For an overview of the challenge, visit [the challenge website](http://svl.stanford.edu/gibson2/challenge.html).
+For an overview of the workshop, visit [the workshop website](https://embodied-ai.org).
 
-Challenge Scenarios
+Tasks
 ----------------------------
+The iGibson Challenge 2021 is composed of two navigation tasks that represent important skills for autonomous visual navigation:
 
-TBA
+- **Interactive Navigation**: the agent is required to reach a navigation goal specified by a coordinate (as in PointNav]) given visual information (RGB+D images). The agent is allowed (or even encouraged) to collide and interact with the environment in order to push obstacles away to clear the path. Note that all objects in our scenes are assigned realistic physical weight and fully interactable. However, as in the real world, while some objects are light and movable by the robot, others are not. Along with the furniture objects originally in the scenes, we also add additional objects (e.g. shoes and toys) from the Google Scanned Objects dataset to simulate real-world clutter. We will use Interactive Navigation Score (INS) to evaluate agents' performance in this task.
 
-
-Challenge Dataset
-----------------------------
-
-TBA
+- **Social Navigation**: similar to Interactive Navigation, the agent is also required to reach a navigation goal specified by a coordinate. In this task, We add a few simulated pedestrians into the scenes. They try to pursue randomly sampled goals while following the collision avoidance motion based on the ORCA formulation[3]. The agent is not allowed to collide with the pedestrians (distance <0.3 meter). If the robot gets too close to the pedestrians (distance <0.5 meter), it will fail to comply with their personal space, but the episode won't terminate. We will use the average of STL (Success weighted by Time Length) and PSC (Personal Space Compliance) to evaluate the agents' performance. More details can be found in the "Evaluation Metrics" section below.
 
 
-Evaluation
+Evaluation Metrics
 -----------------------------
-After calling the STOP action, the agent is evaluated using the "Success weighted by Path Length" (SPL) metric [3].
 
-<p align="center">
-  <img src='misc/spl.png' />
-</p>
+- **Interactive Navigation**: We will use Interactive Navigation Score (INS) as our evaluation metrics. INS is an average of Path Efficiency and Effort Efficiency. Path Efficiency is equivalent to SPL (Success weighted by Shortest Path). Effort Efficiency captures both the excess of displaced mass (kinematic effort) and applied force (dynamic effort) for interaction with objects. We argue that the agent needs to strike a healthy balance between taking a shorter path to the goal and causing less disturbance to the environment. More details can be found in our paper.
 
-An episode is deemed successful if on calling the STOP action, the agent is within 0.36m of the goal position. The evaluation will be carried out in completely new houses which are not present in training and validation splits.
+- **Social Navigation**: We will use the average of STL (Success weighted by Time Length) and PSC (Personal Space Compliance) as our evaluation metrics. STL is computed by success * (time_spent_by_ORCA_agent / time_spent_by_robot_agent). The second term is the number of timesteps that an oracle ORCA agent take to reach the same goal assigned to the robot. This value is clipped by 1. In the context of Social Navigation, we argue STL is more applicable than SPL because a robot agent can achieve perfect SPL by "waiting out" all pedestrians before it makes a move, which defeats the purpose of the task. PSC (Personal Space Compliance) is computed as the percentage of timesteps that the robot agent comply with the pedestrians' personal space (distance >= 0.5 meter). We argue that the agent needs to strike a heathy balance between taking a shorted time to reach the goal and incuring less personal space violation to the pedestrians.
+
+
+Dataset
+----------------------------
+
+We provide 8 scenes reconstructed from real world apartments in total for training in iGibson. All objects in the scenes are assigned realistic weight and fully interactable. For interactive navigation, we also provide 20 additional small objects (e.g. shoes and toys) from the Google Scanned Objects dataset. For fairness, please only use these scenes and objects for training.
+
+For evaluation, we will use 5 unseen scenes and 10 unseen small objects (they will share the same object categories as the 20 training small objects, but they will be different object instances).
+
+Setup
+----------------------------
+We adopt the following task setup:
+
+- **Observation**: (1) Goal position relative to the robot in polar coordinates, (2) current linear and angular velocities, (3) RGB+D images.
+- **Action**: Desired normalized linear and angular velocity.
+- **Reward**: We provide some basic reward functions for reaching goal and making progress. Feel free to create your own.
+- **Termination conditions**: The episode termintes after 500 timesteps or the robot collides with any pedestrian in the Social Nav task.
+The tech spec for the robot and the camera sensor can be found in here.
+
 
 Participation Guidelines
 -----------------------------
@@ -33,8 +47,8 @@ Participate in the contest by registering on the EvalAI challenge page and creat
 ### Local Evaluation
 - Step 1: Clone the challenge repository
   ```bash
-  git clone https://github.com/StanfordVL/GibsonSim2RealChallenge.git
-  cd GibsonSim2RealChallenge
+  git clone https://github.com/StanfordVL/iGibsonChallenge2021.git
+  cd iGibsonChallenge2021
   ```
 
   Three example agents are provided in `simple_agent.py` and `rl_agent.py`: `RandomAgent`, `ForwardOnlyAgent`, and `SACAgent`.
@@ -64,10 +78,13 @@ Participate in the contest by registering on the EvalAI challenge page and creat
 
 - Step 3: Modify the provided Dockerfile to accommodate any dependencies. A minimal Dockerfile is shown below.
   ```Dockerfile
-  FROM gibsonchallenge/gibsonv2:latest
+  FROM gibsonchallenge/gibson_challenge_2021:latest
   ENV PATH /miniconda/envs/gibson/bin:$PATH
 
   ADD agent.py /agent.py
+  ADD simple_agent.py /simple_agent.py
+  ADD rl_agent.py /rl_agent.py
+
   ADD submission.sh /submission.sh
   WORKDIR /
   ```
@@ -76,12 +93,7 @@ Participate in the contest by registering on the EvalAI challenge page and creat
 
 - Step 4: 
 
-  Download challenge data from [here](https://docs.google.com/forms/d/e/1FAIpQLSen7LZXKVl_HuiePaFzG_0Boo6V3J5lJgzt3oPeSfPr4HTIEA/viewform) and decompress in `GibsonSim2RealChallenge/gibson-challenge-data`. The file you need to download is called `gibson-challenge-data.tar.gz`.
-  
-  Please, change the permissions of the directory and subdirectories:
-  ```
-  chmod -R 777 gibson-challenge-data/
-  ```
+  Download challenge data by running `./download.sh` and the data will be decompressed in `gibson_challenge_data_2021`.
 
 - Step 5:
 
@@ -92,11 +104,13 @@ Participate in the contest by registering on the EvalAI challenge page and creat
   If things work properly, you should be able to see the terminal output in the end:
   ```
   ...
-  episode done, total reward -0.31142135623731104, total success 0
-  episode done, total reward -5.084213562373038, total success 0
-  episode done, total reward -11.291320343559496, total success 0
-  episode done, total reward -16.125634918610242, total success 0
-  episode done, total reward -16.557056274847586, total success 0
+  Episode: 1/3
+  Episode: 2/3
+  Episode: 3/3
+  Avg success: 0.0
+  Avg stl: 0.0
+  Avg psc: 1.0
+  Avg episode_return: -0.6209138999323173
   ...
   ```
 
@@ -181,15 +195,13 @@ Train with train split (with all eight training scenes): `./train_locally.sh --d
   
 Feel free to skip Step 4-6 if you want to use other frameworks for training. This is just a example starter code for your reference.
 
-Acknowledgments
--------------------
-We thank [habitat](https://aihabitat.org/) team for the effort of converging task setup and challenge API. 
-
 
 References 
 -------------------
-[1] [Interactive Gibson: A Benchmark for Interactive Navigation in Cluttered Environments](https://ieeexplore.ieee.org/abstract/document/8954627/).  Xia, Fei, William B. Shen, Chengshu Li, Priya Kasimbeg, Micael Tchapmi, Alexander Toshev, Roberto Martín-Martín, and Silvio Savarese. arXiv preprint arXiv:1910.14442 (2019).
+[1] [On evaluation of embodied navigation agents](https://arxiv.org/abs/1807.06757). Peter Anderson, Angel Chang, Devendra Singh Chaplot, Alexey Dosovitskiy, Saurabh Gupta, Vladlen Koltun, Jana Kosecka, Jitendra Malik, Roozbeh Mottaghi, Manolis Savva, Amir R. Zamir. arXiv:1807.06757, 2018.
 
-[2] [Gibson env: Real-world perception for embodied agents](https://arxiv.org/abs/1808.10654). F. Xia, A. R. Zamir, Z. He, A. Sax, J. Malik, and S. Savarese. In CVPR, 2018
+[2] [Interactive Gibson: A Benchmark for Interactive Navigation in Cluttered Environments](https://ieeexplore.ieee.org/abstract/document/8954627/).  Xia, Fei, William B. Shen, Chengshu Li, Priya Kasimbeg, Micael Tchapmi, Alexander Toshev, Roberto Martín-Martín, and Silvio Savarese. arXiv preprint arXiv:1910.14442 (2019).
 
-[3] [On evaluation of embodied navigation agents](https://arxiv.org/abs/1807.06757). Peter Anderson, Angel Chang, Devendra Singh Chaplot, Alexey Dosovitskiy, Saurabh Gupta, Vladlen Koltun, Jana Kosecka, Jitendra Malik, Roozbeh Mottaghi, Manolis Savva, Amir R. Zamir. arXiv:1807.06757, 2018.
+[3] [RVO2 Library: Reciprocal Collision Avoidance for Real-Time Multi-Agent Simulation](https://gamma.cs.unc.edu/RVO2/). Jur van den Berg, Stephen J. Guy, Jamie Snape, Ming C. Lin, and Dinesh Manocha, 2011.
+
+
