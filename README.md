@@ -45,6 +45,7 @@ We adopt the following task setup:
 - **Action**: Desired normalized linear and angular velocity.
 - **Reward**: We provide some basic reward functions for reaching goal and making progress. Feel free to create your own.
 - **Termination conditions**: The episode termintes after 500 timesteps or the robot collides with any pedestrian in the Social Nav task.
+
 The tech spec for the robot and the camera sensor can be found in [here](Parameters.md).
 
 For **Interactive Navigation**, we place N additional small objects (e.g. toys, shoes) near the robot's shortest path to the goal (N is proportional to the path length). These objects are generally physically lighter than the objects originally in the scenes (e.g. tables, chairs).
