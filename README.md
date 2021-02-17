@@ -9,6 +9,10 @@ Tasks
 ----------------------------
 The iGibson Challenge 2021 is composed of two navigation tasks that represent important skills for autonomous visual navigation:
 
+Interactive Navigation            |  Social Navigation
+:-------------------------:|:-------------------------:
+<img src="images/cvpr21_interactive_nav.png" height="400"> | <img src="images/cvpr21_social_nav.png" height="400">
+
 - **Interactive Navigation**: the agent is required to reach a navigation goal specified by a coordinate (as in PointNav]) given visual information (RGB+D images). The agent is allowed (or even encouraged) to collide and interact with the environment in order to push obstacles away to clear the path. Note that all objects in our scenes are assigned realistic physical weight and fully interactable. However, as in the real world, while some objects are light and movable by the robot, others are not. Along with the furniture objects originally in the scenes, we also add additional objects (e.g. shoes and toys) from the Google Scanned Objects dataset to simulate real-world clutter. We will use Interactive Navigation Score (INS) to evaluate agents' performance in this task.
 
 - **Social Navigation**: similar to Interactive Navigation, the agent is also required to reach a navigation goal specified by a coordinate. In this task, We add a few simulated pedestrians into the scenes. They try to pursue randomly sampled goals while following the collision avoidance motion based on the ORCA formulation[3]. The agent is not allowed to collide with the pedestrians (distance <0.3 meter). If the robot gets too close to the pedestrians (distance <0.5 meter), it will fail to comply with their personal space, but the episode won't terminate. We will use the average of STL (Success weighted by Time Length) and PSC (Personal Space Compliance) to evaluate the agents' performance. More details can be found in the "Evaluation Metrics" section below.
@@ -27,6 +31,11 @@ Dataset
 We provide 8 scenes reconstructed from real world apartments in total for training in iGibson. All objects in the scenes are assigned realistic weight and fully interactable. For interactive navigation, we also provide 20 additional small objects (e.g. shoes and toys) from the Google Scanned Objects dataset. For fairness, please only use these scenes and objects for training.
 
 For evaluation, we will use 5 unseen scenes and 10 unseen small objects (they will share the same object categories as the 20 training small objects, but they will be different object instances).
+
+Visualizations for the 8 training scenes.
+
+![alt text](images/cvpr21_dataset.gif)
+
 
 Setup
 ----------------------------
