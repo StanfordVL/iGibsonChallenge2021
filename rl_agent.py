@@ -16,8 +16,8 @@ from tf_agents.utils import common
 from tf_agents.trajectories.time_step import TimeStep
 from tensorflow.python.framework.tensor_spec import TensorSpec, BoundedTensorSpec
 
-IMG_WIDTH = 160
-IMG_HEIGHT = 90
+IMG_WIDTH = 320
+IMG_HEIGHT = 180
 TASK_OBS_DIM = 4
 
 def normal_projection_net(action_spec,
