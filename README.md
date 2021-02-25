@@ -111,7 +111,7 @@ Participate in the contest by registering on the EvalAI challenge page and creat
 
   Evaluate locally:
 
-  You can run `./test_locally.sh --docker-name my_submission`
+  You can run `./test_minival_locally.sh --docker-name my_submission`
 
   If things work properly, you should be able to see the terminal output in the end:
   ```
