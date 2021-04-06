@@ -167,7 +167,7 @@ class SACAgent:
         obs = {
             'depth': np.ones((IMG_HEIGHT, IMG_WIDTH, 1)),
             'rgb': np.ones((IMG_HEIGHT, IMG_WIDTH, 3)),
-            'task_obs': np.ones((TASK_OBS_DIM,))
+            'task_obs': np.ones((TASK_OBS_DIM,)),
         }
         action = self.act(obs)
         print('activate TF session')
@@ -179,7 +179,7 @@ class SACAgent:
     def act(self, obs):
         batch_obs = {}
         for key in obs:
-            batch_obs[key] = np.expand_dims(obs[key], axis=0)
+            batch_obs[key] = obs[key].astype(np.float32)
         time_step = TimeStep(
             np.ones(1),
             np.ones(1),
@@ -197,7 +197,7 @@ if __name__ == "__main__":
     obs = {
         'depth': np.ones((IMG_HEIGHT, IMG_WIDTH, 1)),
         'rgb': np.ones((IMG_HEIGHT, IMG_WIDTH, 3)),
-        'task_obs': np.ones((TASK_OBS_DIM,))
+        'task_obs': np.ones((TASK_OBS_DIM,)),
     }
     os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
     agent = SACAgent(root_dir='test')
